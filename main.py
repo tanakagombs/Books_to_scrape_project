@@ -129,3 +129,4 @@ def main():
                 image_downloader(book["image_url"], "/Users/user/PycharmProjects/Whiskeyscraping/Bratislava ", book["upc"] + ".png")
 
 main()
+
