@@ -3,20 +3,21 @@ from bs4 import BeautifulSoup
 import csv
 import shutil
 
-#function to download image
+#download image to specified file path
 def image_downloader(url, file_path, file_name):
     response = requests.get(url, stream=True)
     with open(file_path + "/" + file_name, 'wb') as out_file:
         shutil.copyfileobj(response.raw, out_file)
 
-#function to get url of
+#get absolute url of a book from the relative url
 def convert_book_relative_url_to_book_absolute_url(relative_url):
     return "https://books.toscrape.com/catalogue/" + relative_url.removeprefix('../../../')
 
+#remove last part of category so that week can add href that will direct to the next page of the url
 def remove_last_part_of_url(category_url):
     return "/".join(category_url.split("/")[:-1])
 
-#function to convert the a number in words to a number as a digit
+#convert the a number in words to a number as a digit
 def word_to_number2(nb_word):
     return {
         "Zero": 0,
@@ -27,7 +28,7 @@ def word_to_number2(nb_word):
         "Five": 5,
     }[nb_word]
 
-# print only the number available as an integer
+# return only the number of books available as an integer
 def number_only(number_available):
         number_available = number_available.removeprefix('In stock (')
         number_available = number_available.removesuffix(' available)')
@@ -38,7 +39,7 @@ def remove_suffix(image_url):
         image_url = image_url.removeprefix('../../')
         real_image_url = "https://books.toscrape.com/" + image_url
         return real_image_url
-
+#scrap all the category links from the main site url(base url)
 def scrap_site_category_links(base_url):
     response = requests.get(base_url)
     page = response.content
@@ -51,6 +52,7 @@ def scrap_site_category_links(base_url):
         category_links.append(url)
     return category_links
 
+#returns the name of a category to use as the title of the category CSV
 def get_category_name(category_link):
     reponse = requests.get(category_link)
     page = reponse.content
@@ -58,6 +60,7 @@ def get_category_name(category_link):
     category_name = soup.find("div", class_="page-header action").find("h1").text
     return category_name
 
+#scrape all the links in a category from the category link
 def scrap_book_links(category_link):
 
     #list where the links  of the books will be stored
@@ -126,7 +129,7 @@ def main():
                 book = scrap_book_info(book_link)
                 writer.writerow(book)
 
-                image_downloader(book["image_url"], "/Users/user/PycharmProjects/Whiskeyscraping/Bratislava ", book["upc"] + ".png")
+                image_downloader(book["image_url"], "/Users/user/PycharmProjects/webscraping_run_code/Books_to_Scrape_Images", book["upc"] + ".png")
 
 main()
 
