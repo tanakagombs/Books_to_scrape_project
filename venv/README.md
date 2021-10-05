@@ -15,3 +15,4 @@ python -m venv NOM_ENVIRONNEMENT
 ##Activation de l'environnement virtuel du projet
 
 pip install -r requirements.txt
+
