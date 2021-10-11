@@ -4,25 +4,25 @@ import csv
 import shutil
 
 
-# download image to specified file path
 def image_downloader(url, file_path, file_name):
+    """download image to specified file path"""
     response = requests.get(url, stream=True)
     with open(file_path + "/" + file_name, 'wb') as out_file:
         shutil.copyfileobj(response.raw, out_file)
 
 
-# get absolute url of a book from the relative url
-def book_relative_url_to_book_absolute_url(relative_url):
+def book_rel_url_to_book_abs_url(relative_url):
+    """get absolute url of a book from the relative url"""
     return "https://books.toscrape.com/catalogue/" + relative_url.removeprefix('../../../')
 
 
-# remove last part of category so that week can add href that will direct to the next page of the url
 def remove_last_part_of_url(category_url):
+    """remove last part of category , add href that will direct to the next page of the url"""
     return "/".join(category_url.split("/")[:-1])
 
 
-# convert the a number in words to a number as a digit
 def word_to_number(nb_word):
+    """convert the a number in words to a number as a digit"""
     return {
         "Zero": 0,
         "One": 1,
@@ -33,22 +33,22 @@ def word_to_number(nb_word):
     }[nb_word]
 
 
-# return only the number of books available as an integer
 def number_only(number_available):
+    """return only the number of books available as an integer"""
     number_available = number_available.removeprefix('In stock (')
     number_available = number_available.removesuffix(' available)')
     return number_available
 
 
-# Transform relative image url to absolute image url
 def remove_suffix(image_url):
+    """Transform relative image url to absolute image url"""
     image_url = image_url.removeprefix('../../')
     real_image_url = "https://books.toscrape.com/" + image_url
     return real_image_url
 
 
-# scrap all the category links from the main site url(base url)
 def scrap_site_category_links(base_url):
+    """scrap all the category links from the main site url(base url)"""
     response = requests.get(base_url)
     page = response.content
     soup = BeautifulSoup(page, "html.parser")
@@ -61,8 +61,8 @@ def scrap_site_category_links(base_url):
     return category_links
 
 
-# returns the name of a category to use as the title of the category CSV
 def get_category_name(category_link):
+    """returns the name of a category to use as the title of the category CSV"""
     response = requests.get(category_link)
     page = response.content
     soup = BeautifulSoup(page, "html.parser")
@@ -89,7 +89,7 @@ def scrap_book_links(category_link):
         urls_of_books = soup.find_all('article')
 
         # links are found in the a href
-        book_links += [book_relative_url_to_book_absolute_url(the_stuff.find('a')['href']) for the_stuff in urls_of_books]
+        book_links += [book_rel_url_to_book_abs_url(the_stuff.find('a')['href']) for the_stuff in urls_of_books]
 
         # check whether a next button exists
         if a := soup.select_one(".next > a"):
