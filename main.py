@@ -5,7 +5,7 @@ import shutil
 
 
 def image_downloader(url, file_path, file_name):
-    """download image to specified file path"""
+    """download image from url to specified file path"""
     response = requests.get(url, stream=True)
     with open(file_path + "/" + file_name, 'wb') as out_file:
         shutil.copyfileobj(response.raw, out_file)
