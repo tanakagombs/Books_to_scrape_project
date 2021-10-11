@@ -19,11 +19,11 @@ if it is installed , the python version will be displayed
 Si ce n'est pas le cas go to : https://www.python.org/downloads/
 and download and install python corresponding to your operating system (Windows,Linux/Unix or macOS).
 
-###To create a virtual environment 
+### To create a virtual environment 
 
 `python -m venv NOM_ENVIRONNEMENT`
 
-##Activation de l'environnement virtuel du projet
+## Activation de l'environnement virtuel du projet
 
 `pip install -r requirements.txt`
 
