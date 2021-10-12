@@ -17,12 +17,12 @@ def book_rel_url_to_book_abs_url(relative_url):
 
 
 def remove_last_part_of_url(category_url):
-    """remove last part of category , add href that will direct to the next page of the url"""
+    """remove last part of category url , add href that will direct to the next page of the url"""
     return "/".join(category_url.split("/")[:-1])
 
 
 def word_to_number(nb_word):
-    """convert the a number in words to a number as a digit"""
+    """convert a number in words to a number as a digit"""
     return {
         "Zero": 0,
         "One": 1,
@@ -62,7 +62,7 @@ def scrap_site_category_links(base_url):
 
 
 def get_category_name(category_link):
-    """returns the name of a category to use as the title of the category CSV"""
+    """returns the name of a category"""
     response = requests.get(category_link)
     page = response.content
     soup = BeautifulSoup(page, "html.parser")
@@ -71,7 +71,7 @@ def get_category_name(category_link):
 
 
 def scrap_book_links(category_link):
-    """scrape all the links in a category from the category link"""
+    """scrape all the book links in a category from the category link"""
     # list where the links  of the books will be stored
     book_links = []
 
@@ -100,6 +100,7 @@ def scrap_book_links(category_link):
 
 
 def scrap_book_info(book_url):
+    """scrap info about a book upc, price, reviews etc"""
     response = requests.get(book_url)
     page = response.content
     soup = BeautifulSoup(page, "html.parser")
@@ -119,6 +120,7 @@ def scrap_book_info(book_url):
 
 
 def main():
+    """Runs the program to scrap the site for the requested information"""
     base_url = "https://books.toscrape.com/index.html"
     category_links = scrap_site_category_links(base_url)
     category_links = [''.join(ele) for ele in category_links]
