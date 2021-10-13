@@ -15,9 +15,9 @@ All the book images will also be downloaded to a file path specified ,in my case
 
 *Installation*
 
-*Begin by installing VirtualEnv :*
+*Begin by installing VirtualEnv, command is :*
 
-*'''pip install virtualenv'''*
+*```pip install virtualenv```*
 
 Make sure you have python installed and access to your terminal,via the command line.
 do this by typing `python` in the terminal for windows  and `python3` on Mac/Unix,
