@@ -8,24 +8,45 @@ This is a script to scrape the website:
 All the book images will also be downloaded to a file path specified ,in my case " "
 
 
-# Récupérer le projet :
+# Get the project :
 `git clone https://github.com/tanakagombs/Books_to_scrape_project.git`
 
-## Création de l'environnement virtuel
-Assurez-vous d'avoir installé python et de pouvoir y accéder via votre terminal, en ligne de commande.
-do this by typing `python` in the terminal for windows  and `python3` on mac,
+## Create a virtual environment
+
+*Installation*
+
+*Begin by installing VirtualEnv :*
+
+*'''pip install virtualenv'''*
+
+Make sure you have python installed and access to your terminal,via the command line.
+do this by typing `python` in the terminal for windows  and `python3` on Mac/Unix,
 if it is installed , the python version will be displayed 
 
-Si ce n'est pas le cas go to : https://www.python.org/downloads/
+If that's not the case go to : https://www.python.org/downloads/
 and download and install python corresponding to your operating system (Windows,Linux/Unix or macOS).
 
 ### To create a virtual environment 
 
-`python -m venv NOM_ENVIRONNEMENT`
+Begin by creating a virtual environment with the command :
 
-## Activation de l'environnement virtuel du projet
+```virtualenv -p python3 env```
 
-`pip install -r requirements.txt`
+*On Windows the command is*
+
+```virtualenv -p $env:python3 env```
+
+To activate the environment,type the following command :
+
+```source venv/bin/activate```
+
+*In Powershel the commannd is :* 
+
+```./env/scripts/activate.ps1```
+
+to install dependencies:
+
+```pip install -r requirements.txt```
 
 ## Exécuter le scraper
 
