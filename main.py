@@ -56,7 +56,7 @@ def scrap_site_category_links(base_url):
     for category_link in soup.find('ul', class_='nav nav-list').find('li').find('ul').find_all('li'):
         href = category_link.a.get('href')
         # url of the category
-        url = ["https://books.toscrape.com/{}".format(href)]
+        url = "https://books.toscrape.com/{}".format(href)
         category_links.append(url)
     return category_links
 
@@ -123,7 +123,7 @@ def main():
     """Runs the program to scrap the site for the requested information"""
     base_url = "https://books.toscrape.com/index.html"
     category_links = scrap_site_category_links(base_url)
-    category_links = [''.join(ele) for ele in category_links]
+
 
     for category_link in category_links:
         book_links = scrap_book_links(category_link)
@@ -131,7 +131,7 @@ def main():
         headings = ["product_page_url", "upc", "title", "price_including_tax", "price_excluding_tax",
                     "number_available", "product_description", "category", "review_rating", "image_url"]
 
-        with open(get_category_name(category_link) + ".csv", 'w') as csv_file:
+        with open(get_category_name(category_link) + ".csv", 'w', encoding="utf-8-sig") as csv_file:
             writer = csv.DictWriter(csv_file, delimiter=';', fieldnames=headings)
             writer.writeheader()
 
@@ -139,7 +139,7 @@ def main():
                 book = scrap_book_info(book_link)
                 writer.writerow(book)
 
-                image_downloader(book["image_url"], "/Users/user/PycharmProjects/webscraping_run_code/Books_to_Scrape_Images", book["upc"] + ".png")
+                image_downloader(book["image_url"], "./Books_to_Scrape_Images", book["upc"] + ".png")
 
 
 if __name__ == "__main__":
