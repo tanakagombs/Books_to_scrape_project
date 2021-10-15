@@ -9,7 +9,7 @@ All the book images will also be downloaded to a file path specified ,in my case
 
 
 # Get the project :
-`git clone https://github.com/tanakagombs/Books_to_scrape_project.git`
+`gh repo clone tanakagombs/Books_to_scrape_project`
 
 ## Create a virtual environment
 
